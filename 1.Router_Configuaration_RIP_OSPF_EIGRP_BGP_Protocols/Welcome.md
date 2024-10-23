@@ -1,69 +1,82 @@
-# Parallel 3 Router Static Configuration Topology
 
-This project demonstrates the implementation of a three-router static routing network in Cisco Packet Tracer. The network consists of three branches: **Pune Branch 1**, **Pune Branch 2**, and **Mumbai Branch**, each connected through routers using static routes.
+# Network Topology Configuration
 
-## Network Topology Overview
+## Overview
+This repository contains the configuration and setup for a network topology involving four branches: Pune, Mumbai, Nagpur, and Delhi, with a central router connecting them. The network is configured using static routing, and this README provides detailed information on the setup and configuration commands used.
 
-- **Router 1** connects to Pune Branch 1.
-- **Router 2** is the central router, connecting Pune Branch 2 and linking Router 1 to Router 3.
-- **Router 3** connects to Mumbai Branches 1 and 2.
+## Network Topology
+The network topology consists of the following branches and devices:
 
-The routers are configured with static routes to ensure that all branches can communicate with each other. 
+1. **Pune Branch**
+   - Devices: Printer0, PC7, PC6
+   - Switch: 2960-24TT Switch3
+   - Router: 1841 Router0
+   - Network: 192.10.2.0/24
+   - Default Gateway: 192.10.2.5
 
-## Devices and Configuration
+2. **Mumbai Branch**
+   - Devices: PC1, PC2, Laptop0, Laptop1
+   - Switch: 2960-24TT Switch1
+   - Router: 1841 Router0
+   - Network: 192.10.1.0/24
+   - Default Gateway: 192.10.1.5
 
-### Pune Branch 1 (Connected to Router 1)
+3. **Nagpur Branch**
+   - Devices: Laptop0, PC2, PC3
+   - Switch: 2960-24TT Switch1
+   - Router: 1841 Router1
+   - Network: 192.10.3.0/24
+   - Default Gateway: 192.10.3.5
 
-- **Devices**: 
-  - PCs: 192.10.2.10, 192.10.2.20
-  - Printer: 192.10.2.30
-  - Switch: 2960
+4. **Delhi Branch**
+   - Devices: PC4, Laptop2, Printer1
+   - Switch: 2960-24TT Switch4
+   - Router: 1841 Router3
+   - Network: 192.10.4.0/24
+   - Default Gateway: 192.10.4.5
 
-### Pune Branch 2 (Connected to Router 2)
+5. **Central Router**
+   - Router: 1841 Router2
+   - Interfaces: 192.10.5.2, 192.10.6.1
 
-- **Devices**: 
-  - PCs: 192.10.1.10, 192.10.1.20
-  - Laptops: 192.10.1.30, 192.10.1.40
-  - Switch: 2960
+## Configuration Commands
+The following static routing commands are used to configure the routers in the network:
 
-### Mumbai Branch (Connected to Router 3)
+### Pune Branch Router (Router0)
+```plaintext
+ip route destination net add SM next hope add
+Router(config)#ip route 192.10.3.0 255.255.255.0 192.10.5.2
+Router(config)#ip route 192.10.4.0 255.255.255.0 192.10.5.2
+Router(config)#ip route 192.10.6.0 255.255.255.0 192.10.5.2
+Mumbai Branch Router (Router1)
+plaintext
 
-- **Devices**:
-  - PCs: 192.10.4.10, 192.10.4.20, 192.10.4.30
-  - Printer: 192.10.4.40
-  - Switch: 2960
 
-## Steps to Implement in Cisco Packet Tracer
+ip route destination net add SM next hope add
+Router(config)#ip route 192.10.1.0 255.255.255.0 192.10.6.1
+Router(config)#ip route 192.10.2.0 255.255.255.0 192.10.6.1
+Router(config)#ip route 192.10.5.0 255.255.255.0 192.10.6.1
+Nagpur Branch Router (Router2)
+plaintext
 
-1. **Add the Routers**:
-   - Place three **1841 routers**: Router 1, Router 2, and Router 3.
-   
-2. **Add Switches and End Devices**:
-   - Add the respective switches and connect end devices (PCs, laptops, printers) in each branch.
 
-3. **Connect the Routers**:
-   - Use **Ethernet or Serial links** to connect:
-     - Router 1 to Router 2.
-     - Router 2 to Router 3.
+ip route destination net add SM next hope add
+Router(config)#ip route 192.10.1.0 255.255.255.0 192.10.5.1
+Router(config)#ip route 192.10.2.0 255.255.255.0 192.10.5.1
+Router(config)#ip route 192.10.3.0 255.255.255.0 192.10.6.2
+Router(config)#ip route 192.10.4.0 255.255.255.0 192.10.6.2
+Delhi Branch Router (Router3)
+plaintext
 
-4. **Configure the Routers**:
-   - Assign IP addresses to the routers and interfaces.
-   - Configure static routing on each router.
 
-## Router Configuration
+ip route destination net add SM next hope add
+Router(config)#ip route 192.10.1.0 255.255.255.0 192.10.6.1
+Router(config)#ip route 192.10.2.0 255.255.255.0 192.10.6.1
+Router(config)#ip route 192.10.3.0 255.255.255.0 192.10.5.1
+Router(config)#ip route 192.10.5.0 255.255.255.0 192.10.5.1
+Image Description
+The image depicts a network topology with four branches (Pune, Mumbai, Nagpur, and Delhi) connected via a central router. Each branch has its own set of devices and a switch, with static routing configured to enable communication between the branches.
 
-### Router 1
-```bash
-Router(config)# ip route 192.10.3.0 255.255.255.0 192.10.5.2
-Router(config)# ip route 192.10.4.0 255.255.255.0 192.10.5.2
-Router(config)# ip route 192.10.8.0 255.255.255.0 192.10.5.2 
-bash`
+Feel free to implement these changes! Need help with anything else?
 
-Router(config)# ip route 192.10.1.0 255.255.255.0 192.10.5.1
-Router(config)# ip route 192.10.2.0 255.255.255.0 192.10.6.1
-Router(config)# ip route 192.10.4.0 255.255.255.0 192.10.6.2
-
-Router(config)# ip route 192.10.1.0 255.255.255.0 192.10.8.1
-Router(config)# ip route 192.10.2.0 255.255.255.0 192.10.8.1
-Router(config)# ip route 192.10.5.0 255.255.255.0 192.10.8.1
 
