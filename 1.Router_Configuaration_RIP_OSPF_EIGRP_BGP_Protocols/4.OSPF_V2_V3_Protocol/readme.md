@@ -34,8 +34,6 @@ PC5: 192.10.1.30 / 255.255.255.0 / 192.10.1.5
   Router(config-router)#network 192.10.3.0 0.0.0.255 area 1
   Router(config-router)#network 192.10.5.0 0.0.0.255 area 1
   Router(config-router)#exit
-
-
 Devices and IP Addresses:
 
 PC2: 192.10.5.10 / 255.255.255.0 / 192.10.5.5
@@ -55,9 +53,6 @@ Laptop1: 192.10.5.50 / 255.255.255.0 / 192.10.5.5
   Router(config-router)#network 192.10.6.0 0.0.0.255 area 2
   Router(config-router)#network 192.10.2.0 0.0.0.255 area 2
   Router(config-router)#exit
-
-
-
 Devices and IP Addresses:
 
 PC2: 192.10.2.10 / 255.255.255.0 / 192.10.2.5
