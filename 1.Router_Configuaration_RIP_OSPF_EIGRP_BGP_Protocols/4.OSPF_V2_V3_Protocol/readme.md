@@ -12,6 +12,7 @@ This document describes the OSPF (Open Shortest Path First) multi-area network t
   Router(config)#router ospf 1
   Router(config-router)#router-id 1.1.1.1
   Router(config-router)#network 192.10.1.0 0.0.0.255 area 0
+  Router(config-router)#network 192.10.3.0 0.0.0.255 area 1
   Router(config-router)#network 192.10.6.0 0.0.0.255 area 2
   Router(config-router)#exit
 Devices and IP Addresses:
@@ -27,16 +28,14 @@ PC3: 192.10.1.20 / 255.255.255.0 / 192.10.1.5
 PC5: 192.10.1.30 / 255.255.255.0 / 192.10.1.5
 
 Area 1
-Router2 Configuration:
-
-plaintext
-
-Copy
+- **Router0 Configuration:**
+  ```plaintext
 Router(config)#router ospf 1
-Router(config-router)#router-id 2.2.2.2
 Router(config-router)#network 192.10.3.0 0.0.0.255 area 1
 Router(config-router)#network 192.10.5.0 0.0.0.255 area 1
 Router(config-router)#exit
+
+  
 Devices and IP Addresses:
 
 PC2: 192.10.5.10 / 255.255.255.0 / 192.10.5.5
@@ -50,16 +49,14 @@ Printer1: 192.10.5.60 / 255.255.255.0 / 192.10.5.5
 Laptop1: 192.10.5.50 / 255.255.255.0 / 192.10.5.5
 
 Area 2
-Router1 Configuration:
-
-plaintext
-
-Copy
+- **Router1 Configuration:**
+  ```plaintext
 Router(config)#router ospf 1
-Router(config-router)#router-id 3.3.3.3
 Router(config-router)#network 192.10.6.0 0.0.0.255 area 2
 Router(config-router)#network 192.10.2.0 0.0.0.255 area 2
 Router(config-router)#exit
+
+
 Devices and IP Addresses:
 
 PC2: 192.10.2.10 / 255.255.255.0 / 192.10.2.5
