@@ -91,3 +91,8 @@ Common issues and troubleshooting steps:
 
 ---
 
+## Lincence and bug reporting
+Enjoy and report bugs to https://github.com/mubarak0101/CCNA_Practical_Labs/issues
+
+This is a free project to be used as you like at your own risk as long as you abide by CC0-1.0. https://choosealicense.com/licenses/cc0-1.0/
+
