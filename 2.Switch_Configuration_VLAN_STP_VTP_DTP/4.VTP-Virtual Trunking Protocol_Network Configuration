@@ -1,0 +1,244 @@
+
+# VTP (Virtual Trunking Protocol) Network Configuration
+
+## Overview
+
+This repository demonstrates a multi-switch network topology using **Virtual Trunking Protocol (VTP)** to manage VLANs efficiently across various floors. The network topology includes a **VTP Server**, **VTP Clients**, and a **VTP Transparent** switch. Each floor in the network has VLANs assigned to teams (HR, IT, and Sales), and these VLANs are managed centrally through the VTP Server.
+
+## Network Topology Summary
+
+- **VTP Server**: Switch located on **Floor 3**
+- **VTP Transparent**: Switch located on **Floor 4** (Sales Team)
+- **VTP Clients**: Switches on Floors 1, 2, 5, 6, and 7
+- **VLANs**: 
+  - **VLAN 10**: HR Team
+  - **VLAN 20**: IT Team
+  - **Sales Private VLAN** for the Sales team on Floor 4.
+
+### Network Diagram
+
+![Network Topology](path-to-your-image-file-in-repo)
+
+### VTP Domain and Configuration
+
+- **VTP Domain**: `CISCO`
+- **VTP Password**: `123`
+
+### Switch Roles:
+1. **VTP Server**:
+   - **Switch on Floor 3** manages all VLAN configurations and propagates them to VTP clients.
+   
+2. **VTP Clients**:
+   - Switches on Floors 1, 2, 5, 6, and 7 receive VLAN updates from the VTP server.
+   
+3. **VTP Transparent**:
+   - **Switch on Floor 4** forwards VTP updates but does not participate in the creation or modification of VLANs.
+
+## VTP Configuration
+
+### VTP Server Configuration (Switch on Floor 3)
+This switch serves as the VTP server, responsible for creating VLANs and propagating them to the VTP clients.
+```bash
+Switch(config)# vtp domain CISCO
+Switch(config)# vtp mode server
+Switch(config)# vtp password 123
+Switch(config)# interface fastethernet 0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/2
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+```
+
+### VTP Client Configuration (e.g., Switch on Floor 1)
+VTP clients receive VLAN configurations from the server but cannot create or modify VLANs.
+```bash
+Switch(config)# vtp domain CISCO
+Switch(config)# vtp mode client
+Switch(config)# vtp password 123
+Switch(config)# interface fastethernet 0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/2
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+```
+
+### VTP Transparent Configuration (Switch on Floor 4)
+This switch is set to VTP Transparent mode. It forwards VTP messages but does not synchronize VLANs with other switches.
+```bash
+Switch(config)# vtp domain CISCO
+Switch(config)# vtp mode transparent
+Switch(config)# vtp password 123
+Switch(config)# interface fastethernet 0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/2
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+```
+
+### VTP Client Configuration (Switches on Floors 5, 6, and 7)
+The switches on these floors are VTP clients, following the same configuration as above.
+```bash
+Switch(config)# vtp domain CISCO
+Switch(config)# vtp mode client
+Switch(config)# vtp password 123
+Switch(config)# interface fastethernet 0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/2
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+```
+
+## Floor-by-Floor VLAN and Team Assignment
+
+### Floor 1
+- **VTP Client**: `Switch 1`
+- **VLANs**: 
+  - **VLAN 10**: HR Team
+  - **VLAN 20**: IT Team
+```bash
+Switch(config)# interface fastethernet 0/3
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/4
+Switch(config-if)# switchport access vlan 20
+Switch(config-if)# exit
+```
+
+### Floor 2
+- **VTP Client**: `Switch 2`
+- **VLANs**: 
+  - **VLAN 10**: HR Team
+  - **VLAN 20**: IT Team
+```bash
+Switch(config)# interface fastethernet 0/3
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/4
+Switch(config-if)# switchport access vlan 20
+Switch(config-if)# exit
+```
+
+### Floor 3
+- **VTP Server**: `Switch 3`
+- **VLANs**: 
+  - **VLAN 10**: HR Team
+  - **VLAN 20**: IT Team
+```bash
+Switch(config)# interface fastethernet 0/3
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/4
+Switch(config-if)# switchport access vlan 20
+Switch(config-if)# exit
+```
+
+### Floor 4 (Sales Team Private VLAN)
+- **VTP Transparent**: `Switch 4`
+- **VLANs**: 
+  - **Sales Private VLAN**
+```bash
+Switch(config)# interface fastethernet 0/3
+Switch(config-if)# switchport access vlan 30
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/4
+Switch(config-if)# switchport access vlan 30
+Switch(config-if)# exit
+```
+
+### Floor 5
+- **VTP Client**: `Switch 5`
+- **VLANs**: 
+  - **VLAN 10**: HR Team
+  - **VLAN 20**: IT Team
+```bash
+Switch(config)# interface fastethernet 0/3
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/4
+Switch(config-if)# switchport access vlan 20
+Switch(config-if)# exit
+```
+
+### Floor 6
+- **VTP Client**: `Switch 6`
+- **VLANs**: 
+  - **VLAN 10**: HR Team
+  - **VLAN 20**: IT Team
+```bash
+Switch(config)# interface fastethernet 0/3
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/4
+Switch(config-if)# switchport access vlan 20
+Switch(config-if)# exit
+```
+
+### Floor 7
+- **VTP Client**: `Switch 7`
+- **VLANs**: 
+  - **VLAN 10**: HR Team
+  - **VLAN 20**: IT Team
+```bash
+Switch(config)# interface fastethernet 0/3
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/4
+Switch(config-if)# switchport access vlan 20
+Switch(config-if)# exit
+```
+
+## VLAN-to-Team Mapping
+
+| Floor   | VLAN ID | VLAN Name  | Team              |
+|---------|---------|------------|-------------------|
+| Floor 1 | 10      | HR_Team    | HR Team           |
+| Floor 1 | 20      | IT_Team    | IT Team           |
+| Floor 2 | 10      | HR_Team    | HR Team           |
+| Floor 2 | 20      | IT_Team    | IT Team           |
+| Floor 3 | 10      | HR_Team    | HR Team           |
+| Floor 3 | 20      | IT_Team    | IT Team           |
+| Floor 4 | 30      | Sales_Team | Sales Team Private|
+| Floor 5 | 10      | HR_Team    | HR Team           |
+| Floor 5 | 20      | IT_Team    | IT Team           |
+| Floor 6 | 10      | HR_Team    | HR Team           |
+| Floor 6 | 20      | IT_Team    | IT Team           |
+| Floor 7 | 10      | HR_Team    | HR Team           |
+| Floor 7 | 20      | IT_Team    | IT Team           |
+
+### Trunking Configuration for Inter-Switch Links
+To ensure proper VTP message propagation and allow multiple VLAN traffic between switches, trunk links must be configured between the switches.
+```bash
+Switch(config)# interface fastethernet 0/1
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+Switch(config)# interface fastethernet 0/2
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# exit
+```
+
+## V
+
+TP Modes Explained
+
+### VTP Server Mode
+- This switch creates and manages VLANs.
+- VLAN changes are propagated to all VTP clients.
+- Only one switch should typically be in VTP Server mode for centralized VLAN management.
+
+### VTP Client Mode
+- VTP Clients receive VLAN updates from the VTP server.
+- They cannot create or modify VLANs, but they synchronize any VLAN changes from the server.
+
+### VTP Transparent Mode
+- Transparent switches do not participate in VTP updates.
+- They forward VTP messages but do not alter their own VLAN database unless manually configured.
+
+## Lincence and bug reporting
+Enjoy and report bugs to https://github.com/mubarak0101/CCNA_Practical_Labs/issues
+
+This is a free project to be used as you like at your own risk as long as you abide by CC0-1.0. https://choosealicense.com/licenses/cc0-1.0/
+
